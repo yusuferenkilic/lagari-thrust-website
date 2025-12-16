@@ -1,0 +1,216 @@
+/* Google Fonts - Exo 2 */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Fontshare - Clash Display */
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+
+/* Tailwind CSS */
+@import "tailwindcss";
+
+/* Lagari Thrust Kurumsal Renkler */
+:root {
+  /* Ana Renkler */
+  --lagari-orange: #D95523;
+  --lagari-cream: #F9F5D8;
+  --lagari-dark-green: #202917;
+  --lagari-black: #272727;
+  
+  /* Orange Tonları */
+  --orange-50: #fef3ed;
+  --orange-100: #fce4d6;
+  --orange-200: #f9c5a8;
+  --orange-300: #f5a274;
+  --orange-400: #e87a3e;
+  --orange-500: #D95523;
+  --orange-600: #c44a1d;
+  --orange-700: #a33d18;
+  --orange-800: #833114;
+  --orange-900: #6b2912;
+
+  /* Cream Tonları */
+  --cream-50: #fdfcf7;
+  --cream-100: #fbf9f0;
+  --cream-200: #F9F5D8;
+  --cream-300: #f0e9bc;
+  --cream-400: #e5d99a;
+  --cream-500: #d9c878;
+
+  /* Dark Tonları */
+  --dark-50: #4a4d42;
+  --dark-100: #3d4036;
+  --dark-200: #31342b;
+  --dark-300: #272a21;
+  --dark-400: #202917;
+  --dark-500: #1a2112;
+  --dark-600: #151a0e;
+  --dark-700: #10130a;
+  --dark-800: #0b0d07;
+  --dark-900: #060704;
+
+  /* Neutral (Black tonları) */
+  --neutral-700: #333333;
+  --neutral-800: #272727;
+  --neutral-900: #1a1a1a;
+  
+  /* Background & Foreground */
+  --background: var(--lagari-dark-green);
+  --foreground: var(--lagari-cream);
+}
+
+@theme inline {
+  /* Renkler */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-lagari-orange: var(--lagari-orange);
+  --color-lagari-cream: var(--lagari-cream);
+  --color-lagari-dark-green: var(--lagari-dark-green);
+  --color-lagari-black: var(--lagari-black);
+  
+  --color-orange-50: var(--orange-50);
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-300: var(--orange-300);
+  --color-orange-400: var(--orange-400);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+  --color-orange-800: var(--orange-800);
+  --color-orange-900: var(--orange-900);
+  
+  --color-cream-50: var(--cream-50);
+  --color-cream-100: var(--cream-100);
+  --color-cream-200: var(--cream-200);
+  --color-cream-300: var(--cream-300);
+  --color-cream-400: var(--cream-400);
+  --color-cream-500: var(--cream-500);
+  
+  --color-dark-50: var(--dark-50);
+  --color-dark-100: var(--dark-100);
+  --color-dark-200: var(--dark-200);
+  --color-dark-300: var(--dark-300);
+  --color-dark-400: var(--dark-400);
+  --color-dark-500: var(--dark-500);
+  --color-dark-600: var(--dark-600);
+  --color-dark-700: var(--dark-700);
+  --color-dark-800: var(--dark-800);
+  --color-dark-900: var(--dark-900);
+  
+  /* Fontlar */
+  --font-clash: 'Clash Display', sans-serif;
+  --font-exo: 'Exo 2', sans-serif;
+}
+
+/* Base Styles */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Exo 2', sans-serif;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection Color */
+::selection {
+  background-color: var(--lagari-orange);
+  color: var(--lagari-cream);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--lagari-dark-green);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dark-200);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--lagari-orange);
+}
+
+/* Focus Styles */
+*:focus-visible {
+  outline: 2px solid var(--lagari-orange);
+  outline-offset: 2px;
+}
+
+/* Utility Classes */
+.font-clash {
+  font-family: 'Clash Display', sans-serif;
+}
+
+.font-exo {
+  font-family: 'Exo 2', sans-serif;
+}
+
+/* Gradient Backgrounds */
+.bg-lagari-gradient {
+  background: linear-gradient(to bottom, var(--lagari-dark-green), var(--dark-800));
+}
+
+.bg-fire-gradient {
+  background: linear-gradient(to top, var(--lagari-orange), var(--orange-400), var(--lagari-cream));
+}
+
+.bg-hero-glow {
+  background: radial-gradient(ellipse at center, rgba(217, 85, 35, 0.15) 0%, transparent 70%);
+}
+
+/* Text Gradient */
+.text-gradient-fire {
+  background: linear-gradient(to right, var(--lagari-orange), var(--orange-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(217, 85, 35, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(217, 85, 35, 0.6);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}

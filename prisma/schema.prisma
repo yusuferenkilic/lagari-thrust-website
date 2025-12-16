@@ -1,0 +1,155 @@
+// Lagari Thrust - Database Schema
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== PROJELER ====================
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String   @db.Text
+  image       String?
+  specs       Json?    // Teknik özellikler (yükseklik, çap, ağırlık, vb.)
+  status      String   @default("active") // active, completed, upcoming
+  year        Int
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ==================== YARIŞMALAR ====================
+model Competition {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String   @db.Text
+  date        DateTime
+  location    String
+  result      String?  // Derece/sonuç
+  images      String[] // Görsel URL'leri
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ==================== SPONSORLAR ====================
+model Sponsor {
+  id          String   @id @default(cuid())
+  name        String
+  logo        String
+  website     String?
+  tier        String   @default("bronze") // platinum, gold, silver, bronze
+  description String?  @db.Text
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ==================== BİRİMLER/DEPARTMANLAR ====================
+model Department {
+  id               String       @id @default(cuid())
+  name             String
+  slug             String       @unique
+  description      String       @db.Text
+  longDescription  String?      @db.Text
+  image            String?
+  icon             String?      // Lucide icon name
+  responsibilities String[]     // Sorumluluk alanları
+  order            Int          @default(0)
+  members          TeamMember[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+}
+
+// ==================== TAKIM ÜYELERİ ====================
+model TeamMember {
+  id           String     @id @default(cuid())
+  name         String
+  role         String     // Pozisyon (Takım Kaptanı, Mühendis, vb.)
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  image        String?
+  linkedin     String?
+  email        String?
+  isActive     Boolean    @default(true)
+  isLead       Boolean    @default(false) // Birim lideri mi?
+  order        Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+// ==================== GALERİ ====================
+model GalleryItem {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  type        String    @default("image") // image, video
+  url         String
+  thumbnail   String?
+  category    String    @default("general") // rocket, competition, team, event, workshop
+  date        DateTime?
+  featured    Boolean   @default(false)
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ==================== BAŞVURULAR ====================
+model Application {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  phone        String?
+  departmentId String   // Başvurulan birim ID'si
+  university   String?
+  faculty      String?  // Fakülte
+  grade        String?  // Sınıf (1, 2, 3, 4, Yüksek Lisans, vb.)
+  experience   String?  @db.Text // Deneyim
+  motivation   String   @db.Text // Motivasyon mektubu
+  portfolio    String?  // LinkedIn/GitHub/Portfolio linki
+  status       String   @default("pending") // pending, reviewed, accepted, rejected
+  notes        String?  @db.Text // Admin notları
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ==================== İLETİŞİM MESAJLARI ====================
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ==================== ADMIN KULLANICILARI ====================
+model Admin {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String    // bcrypt ile hashlenmiş
+  name      String
+  role      String    @default("admin") // admin, superadmin
+  lastLogin DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// ==================== SİTE AYARLARI ====================
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String @db.Text
+  type  String @default("string") // string, number, boolean, json
+}
